@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+const base = process.env.NODE_ENV === 'production' ? '/time-allocated-to-issue/' : '/';
+
 export default defineConfig({
   plugins: [react()],
-  // Base is required for GitHub Pages project site deployment.
-  base: '/time-allocated-to-issue/',
-  // No dev proxy: the client will call Google APIs directly in client-side mode.
+  // Use a project-base only for production builds (GitHub Pages).
+  // In development we serve from `/` so the dev server does not 404 on absolute asset paths.
+  base,
   server: {}
-})
+});
